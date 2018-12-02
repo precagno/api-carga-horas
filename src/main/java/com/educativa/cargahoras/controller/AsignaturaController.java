@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,14 +33,23 @@ public class AsignaturaController {
 	
 	//Create a new asignatura
 	@PostMapping("/asignaturas")
-	public Asignatura createAsignatura(@Valid @RequestBody Asignatura asignatura){
-		return this.asignaturarepository.save(asignatura);
+	public ResponseEntity<?> createAsignatura(@Valid @RequestBody Asignatura asignatura){
+		if(asignatura.getNombre_asignatura()==""){
+			return ResponseEntity.badRequest().build();
+		}
+		@Valid Asignatura save = this.asignaturarepository.save(asignatura);
+		String response=String.format("Asignatura creada correctamente con id %i",save.getID_asignatura());
+
+		return ResponseEntity.ok(response);
 	}
 	
 	//Get single asignatura by id
 	@GetMapping("/asignaturas/{id}")
-	public Asignatura getAsignaturaById(@PathVariable(name="id")Integer id){
-		return this.asignaturarepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Asignatura", "ID_asignatura", id));
+	public ResponseEntity<?> getAsignaturaById(@PathVariable(name="id")Integer id){
+		Asignatura asignatura = this.asignaturarepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Asignatura", "ID_asignatura", id));
+		String response=String.format("Asignatura actualizada correctamente con id %i",asignatura.getID_asignatura());
+
+		return ResponseEntity.ok(response);
 	}
 	
 	//Update asignatura
@@ -60,7 +68,7 @@ public class AsignaturaController {
 		String response=String.format("La asignatura con id: %s (%s) fue borrada correctamente.",id,nombre_asignatura);
 		
 		this.asignaturarepository.delete(deletedAsignatura);
-		return new ResponseEntity<String>(response,HttpStatus.OK);
-	}
 
+		return ResponseEntity.ok(response);
+	}
 }
