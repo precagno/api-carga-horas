@@ -1,7 +1,7 @@
 package com.educativa.cargahoras;
 
-import com.educativa.cargahoras.model.Asignatura;
-import com.educativa.cargahoras.repository.AsignaturaRepository;
+import com.educativa.cargahoras.entities.Asignatura;
+import com.educativa.cargahoras.repositories.AsignaturaRepository;
 
 import org.junit.After;
 import org.junit.Before;

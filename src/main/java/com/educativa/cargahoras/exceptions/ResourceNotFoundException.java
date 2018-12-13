@@ -1,4 +1,4 @@
-package com.educativa.cargahoras.exception;
+package com.educativa.cargahoras.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -1,4 +1,4 @@
-package com.educativa.cargahoras.controller;
+package com.educativa.cargahoras.controllers;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educativa.cargahoras.exception.ResourceNotFoundException;
-import com.educativa.cargahoras.model.Asignatura;
-import com.educativa.cargahoras.repository.AsignaturaRepository;
+import com.educativa.cargahoras.exceptions.ResourceNotFoundException;
+import com.educativa.cargahoras.entities.Asignatura;
+import com.educativa.cargahoras.repositories.AsignaturaRepository;
 
 @RestController
 @RequestMapping("/api")

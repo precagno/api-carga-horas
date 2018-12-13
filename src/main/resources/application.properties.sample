@@ -1,0 +1,6 @@
+##Update database's structure at every change
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://localhost:3306/db
+spring.datasource.username=
+spring.datasource.password=
+server.port=8080

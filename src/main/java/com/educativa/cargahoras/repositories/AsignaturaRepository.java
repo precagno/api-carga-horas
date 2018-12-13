@@ -1,9 +1,9 @@
-package com.educativa.cargahoras.repository;
+package com.educativa.cargahoras.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.educativa.cargahoras.model.Asignatura;
+import com.educativa.cargahoras.entities.Asignatura;
 
 @Repository
 public interface AsignaturaRepository extends JpaRepository<Asignatura,Integer>{

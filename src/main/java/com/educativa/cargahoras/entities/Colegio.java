@@ -1,4 +1,4 @@
-package com.educativa.cargahoras.model;
+package com.educativa.cargahoras.entities;
 
 import java.util.Date;
 

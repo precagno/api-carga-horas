@@ -1,0 +1,51 @@
+Nombre del sitio: carga-horas.com
+Descripción: Sistema online de carga de horas docentes de xxxxxxxx.
+
+Acciones:
+		-Registrar docentes.
+		-Registrar horas.
+		-Registrar asignaturas.
+	    -Agregar asignaturas a docentes.
+	    -Agregar horas a docentes.
+
+Modelos:
+        Docente
+		--id_docente(int),PK
+		--nombre(string)
+		--apellido(string)
+		--edad(int)
+		--direccion(string)
+		--nacionalidad(string)
+		--antiguedad(int)
+		--puntaje(decimal)
+		--asignaturas(list<Asignatura>),FK
+		--horas(Hora),FK
+		--created_at(timestamp)
+
+		Comentarios:
+		-Relación many to many con el modelo "Asignatura".
+		-Relación one to many con el modelo "Hora".
+
+	Asignatura:
+		 --id_asignatura(int),PK
+		 --nombre(string)
+		 --docentes(List<Docente>),FK
+
+		 Comentarios:
+         -Relación many to many con el modelo "Docente"
+
+	Hora:
+		 --id_hora(int),PK
+		 --descripcion(string)
+		 --curso(string)
+		 --docente(Docente),FK
+		 --colegio(int),FK
+
+		  Comentarios:
+		  -Relación many to one con el modelo "Docente"
+          -Relación many to one con el modelo "Colegio".
+
+	Colegio:
+		  --id_colegio(int),PK
+	      --nombre(string)
+		  --direccion(string)
