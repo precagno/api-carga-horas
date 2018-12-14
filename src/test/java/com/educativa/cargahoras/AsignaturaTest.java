@@ -27,12 +27,7 @@ public class AsignaturaTest {
 
 	@Test
 	public void cargarAsignaturasTest(){
-		Asignatura asig = new Asignatura();
-		asig.setNombre_asignatura("Literatura Americana");
-		Asignatura save = this.repo.save(asig);
 
-		assertEquals(save.getNombre_asignatura(),"Literatura Americana");
-		assertTrue(this.repo.count() == 1);
 	}
 
 	@Before

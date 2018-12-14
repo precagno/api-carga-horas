@@ -48,11 +48,11 @@ public class DocenteController {
 	@PutMapping("/docentes/{id}")
 	public Docente updateDocente(@PathVariable(value="id")Integer id ,@Valid @RequestBody Docente docente){
 		Docente docenteEdited=this.docenteRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Docente", "ID_docente", id));
-		docenteEdited.setNombre_completo(docente.getNombre_completo());
+		docenteEdited.setNombre(docente.getNombre());
 		docenteEdited.setEdad(docente.getEdad());
 		docenteEdited.setDireccion(docente.getDireccion());
 		docenteEdited.setNacionalidad(docente.getNacionalidad());
-		docenteEdited.setAsignatura(docente.getAsignatura());
+
 		docenteEdited.setAntiguedad(docente.getAntiguedad());
 		docenteEdited.setPuntaje(docente.getPuntaje());
 		
@@ -63,7 +63,7 @@ public class DocenteController {
 	@DeleteMapping("/docentes/{id}")
 	public ResponseEntity<?> deleteDocente(@PathVariable(value="id") Integer id){
 		Docente docenteDeleted=this.docenteRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Docente", "ID_docente", id));
-		String nombre_completo=docenteDeleted.getNombre_completo();
+		String nombre_completo=docenteDeleted.getNombre();
 		String response=String.format("El docente con id: %s (%s) fue eliminado del sistema",id,nombre_completo);
 		
 		this.docenteRepository.delete(docenteDeleted);

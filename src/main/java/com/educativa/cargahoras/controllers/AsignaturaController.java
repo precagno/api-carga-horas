@@ -22,7 +22,7 @@ import com.educativa.cargahoras.repositories.AsignaturaRepository;
 @RestController
 @RequestMapping("/api")
 public class AsignaturaController {
-	@Autowired
+	/*@Autowired
 	AsignaturaRepository asignaturarepository; 
 	
 	//Get all asignaturas
@@ -70,5 +70,5 @@ public class AsignaturaController {
 		this.asignaturarepository.delete(deletedAsignatura);
 
 		return ResponseEntity.ok(response);
-	}
+	}*/
 }

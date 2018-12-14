@@ -1,20 +1,12 @@
 package com.educativa.cargahoras.entities;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -22,51 +14,58 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="asignaturas")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value={"createdAt","updatedAt"},allowGetters=true)
+@JsonIgnoreProperties(value={"fechaCreacion"},allowGetters=true)
 public class Asignatura {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	
-	private Integer ID_asignatura;
+	private Integer idAsignatura;
 	@NotBlank
-	private String nombre_asignatura;
+	private String nombreAsignatura;
 	@Column(nullable=false,updatable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
-	private Date createdAt;
-	@Column(nullable=false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@LastModifiedDate
-	private Date updatedAt;
+	private Date fechaCreacion;
+	@ManyToMany(mappedBy = "asignaturas")
+	private List<Docente> docentes;
 
-	public Integer getID_asignatura() {
-		return this.ID_asignatura;
-	}
+    public Integer getIdAsignatura() {
+        return idAsignatura;
+    }
 
-	public void setID_asignatura(Integer iD_asignatura) {
-		ID_asignatura = iD_asignatura;
-	}
+    public void setIdAsignatura(Integer idAsignatura) {
+        this.idAsignatura = idAsignatura;
+    }
 
-	public String getNombre_asignatura() {
-		return this.nombre_asignatura;
-	}
+    public String getNombreAsignatura() {
+        return nombreAsignatura;
+    }
 
-	public void setNombre_asignatura(String nombre_asignatura) {
-		this.nombre_asignatura = nombre_asignatura;
-	}
+    public void setNombreAsignatura(String nombreAsignatura) {
+        this.nombreAsignatura = nombreAsignatura;
+    }
 
-	public Date getCreatedAt() {
-		return this.createdAt;
-	}
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
 
-	public Date getUpdatedAt() {
-		return this.updatedAt;
-	}
+    public List<Docente> getDocentes() {
+        return docentes;
+    }
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
+    public void setDocentes(List<Docente> docentes) {
+        this.docentes = docentes;
+    }
+
+    @Override
+	public String toString() {
+		return "Asignatura{" +
+				"idAsignatura=" + idAsignatura +
+				", nombreAsignatura='" + nombreAsignatura + '\'' +
+				", fechaCreacion=" + fechaCreacion +
+				'}';
 	}
 }
