@@ -34,14 +34,17 @@ public class DocenteController {
 	
 	//Create a new docente
 	@PostMapping("/docentes")
-	public Docente createDocente(@Valid @RequestBody Docente docente){
-		return this.docenteRepository.save(docente);
+	public ResponseEntity<?> createDocente(@RequestBody @Valid Docente docente){
+        Docente docenteAux = docente;
+        this.docenteRepository.save(docenteAux);
+        String format=String.format("Docente creado correctamente con id %d",docenteAux.getIdDocente());
+	    return ResponseEntity.ok(format);
 	}
 	
 	//Get single docente by id
 	@GetMapping("/docentes/{id}")
 	public Docente getDocenteById(@PathVariable(value="id")Integer id){
-		return this.docenteRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Docente", "ID_docente", id));
+		return this.docenteRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Docente","id_docente",id));
 	}
 	
 	//Update a docente
