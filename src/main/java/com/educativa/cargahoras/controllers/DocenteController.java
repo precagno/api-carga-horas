@@ -2,10 +2,9 @@ package com.educativa.cargahoras.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
 
+import com.educativa.cargahoras.services.DocenteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,60 +15,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educativa.cargahoras.exceptions.ResourceNotFoundException;
 import com.educativa.cargahoras.entities.Docente;
-import com.educativa.cargahoras.repositories.DocenteRepository;
 
 @RestController
 @RequestMapping("/api")
 public class DocenteController {
 	@Autowired
-	private DocenteRepository docenteRepository;
-	
+	private DocenteServiceImpl docenteService;
+
 	//Get all docentes
 	@GetMapping("/docentes")
 	public List<Docente> getDocentes(){
-		return this.docenteRepository.findAll();
+		return this.docenteService.getAllDocentes();
 	}
 	
 	//Create a new docente
 	@PostMapping("/docentes")
-	public ResponseEntity<?> createDocente(@RequestBody @Valid Docente docente){
-        Docente docenteAux = docente;
-        this.docenteRepository.save(docenteAux);
-        String format=String.format("Docente creado correctamente con id %d",docenteAux.getIdDocente());
-	    return ResponseEntity.ok(format);
+	public ResponseEntity<?> createDocente(@RequestBody Docente docente){
+		Docente docSaved = this.docenteService.createDocente(docente);
+
+		String response=String.format("Fue creado el docente con el id %d",docSaved.getIdDocente());
+		return ResponseEntity.ok(response);
 	}
 	
 	//Get single docente by id
 	@GetMapping("/docentes/{id}")
 	public Docente getDocenteById(@PathVariable(value="id")Integer id){
-		return this.docenteRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Docente","id_docente",id));
+		return this.docenteService.getDocenteById(id);
 	}
 	
 	//Update a docente
 	@PutMapping("/docentes/{id}")
-	public Docente updateDocente(@PathVariable(value="id")Integer id ,@Valid @RequestBody Docente docente){
-		Docente docenteEdited=this.docenteRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Docente", "ID_docente", id));
-		docenteEdited.setNombre(docente.getNombre());
-		docenteEdited.setEdad(docente.getEdad());
-		docenteEdited.setDireccion(docente.getDireccion());
-		docenteEdited.setNacionalidad(docente.getNacionalidad());
+	public ResponseEntity<?> updateDocente(@PathVariable(value="id")Integer id ,@RequestBody Docente docente){
+		this.docenteService.updateDocenteById(id,docente);
 
-		docenteEdited.setAntiguedad(docente.getAntiguedad());
-		docenteEdited.setPuntaje(docente.getPuntaje());
-		
-		return this.docenteRepository.save(docenteEdited);
+		String response=String.format("Fue actualizado el docente con el id %d",id);
+		return ResponseEntity.ok(response);
 	}
 	
 	//Delete a docente
 	@DeleteMapping("/docentes/{id}")
 	public ResponseEntity<?> deleteDocente(@PathVariable(value="id") Integer id){
-		Docente docenteDeleted=this.docenteRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Docente", "ID_docente", id));
-		String nombre_completo=docenteDeleted.getNombre();
-		String response=String.format("El docente con id: %s (%s) fue eliminado del sistema",id,nombre_completo);
-		
-		this.docenteRepository.delete(docenteDeleted);
-		return new ResponseEntity<String>(response,HttpStatus.OK); 
+		this.docenteService.deleteDocenteById(id);
+
+		String response=String.format("Fue borrado de la base de datos el docente con el id %d",id);
+		return ResponseEntity.ok(response);
 	}
 }
