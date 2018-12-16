@@ -10,4 +10,6 @@ public interface DocenteService {
     public Docente createDocente(Docente docente);
     public int updateDocenteById(int id,Docente docente);
     public int deleteDocenteById(int id);
+    public void deleteAllDocentes();
+    public Long cantDocentes();
 }

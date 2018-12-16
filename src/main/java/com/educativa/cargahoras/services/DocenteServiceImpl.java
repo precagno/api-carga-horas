@@ -77,4 +77,14 @@ public class DocenteServiceImpl implements DocenteService{
         this.repository.delete(docente);
         return id;
     }
+
+    @Override
+    public void deleteAllDocentes() {
+        this.repository.deleteAll();
+    }
+
+    @Override
+    public Long cantDocentes() {
+        return this.repository.count();
+    }
 }
