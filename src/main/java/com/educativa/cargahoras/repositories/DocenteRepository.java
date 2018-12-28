@@ -7,4 +7,5 @@ import com.educativa.cargahoras.entities.Docente;
 
 @Repository
 public interface DocenteRepository extends JpaRepository<Docente,Integer>{
+	public Docente findByNombre(String nombre);
 }

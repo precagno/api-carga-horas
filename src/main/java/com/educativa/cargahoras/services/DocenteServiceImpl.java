@@ -87,4 +87,9 @@ public class DocenteServiceImpl implements DocenteService{
     public Long cantDocentes() {
         return this.repository.count();
     }
+
+	@Override
+	public Docente getDocenteByName(String name) {
+		return this.repository.findByNombre(name);
+	}
 }
