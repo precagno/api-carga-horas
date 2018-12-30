@@ -1,9 +1,11 @@
 package com.educativa.cargahoras;
 
 import com.educativa.cargahoras.entities.Docente;
+import com.educativa.cargahoras.exceptions.ResourceNotFoundException;
 import com.educativa.cargahoras.services.DocenteService;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,8 +47,7 @@ public class DocenteTest {
 		
 		assertThat(docFound.getPuntaje())
 		.isNotNull()
-		.isGreaterThan(30d)
-		;
+		.isGreaterThan(30d);
 	}
 	
 	@Test
@@ -54,22 +55,44 @@ public class DocenteTest {
 		this.createDocenteEntity();
 		Docente docente=this.docenteService.getDocenteByName("Pablo");
 		
-		assertThat(docente).
-			isNotNull();
-		
-		assertThat(docente.getNombre()).isEqualTo("Pablo");
-		assertThat(docente.getApellido()).isEqualTo("Recagno");
+		assertThat(docente).isNotNull();
+		assertThat(docente.getNombre()).isNotEmpty().isEqualTo("Pablo");
+		assertThat(docente.getApellido()).isNotEmpty().isEqualTo("Recagno");
 	}
+
+	@Test
+    public void getDocenteExceptionTest(){
+        assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(()->{
+            this.docenteService.getDocenteById(-1);
+        });
+    }
 	
 	@Test
 	public void updateDocenteTest(){
-		
-	}
+        int idDocente = this.createDocenteEntity().getIdDocente();
+
+        Docente docenteAux = new Docente();
+        String nombre = "Raul";
+        docenteAux.setNombre(nombre);
+        String apellido = "Antares";
+        docenteAux.setApellido(apellido);
+
+        this.docenteService.updateDocenteById(idDocente,docenteAux);
+
+        Docente docenteUpdated = this.docenteService.getDocenteById(idDocente);
+
+        assertThat(docenteUpdated).isNotNull();
+        assertThat(docenteUpdated.getNombre()).isNotEmpty().isEqualTo(nombre);
+        assertThat(docenteUpdated.getApellido()).isNotEmpty().isEqualTo(apellido);
+    }
 	
 	@Test
 	public void deleteDocenteTest(){
-		
-	}
+        int idDocente = this.createDocenteEntity().getIdDocente();
+        int idDocenteDeleted = this.docenteService.deleteDocenteById(idDocente);
+
+        assertThat(idDocenteDeleted).isEqualTo(idDocente).isGreaterThan(0);
+    }
 
 	/////////////Private methods
 	@Before
@@ -84,7 +107,7 @@ public class DocenteTest {
 		docente.setApellido("Recagno");
 		docente.setEdad(30);
 		docente.setDireccion("Segurola 1325");
-		docente.setNacionalidad("Argentino");
+		docente.setNacionalidad("argentino");
 		docente.setAntiguedad(6);
 		docente.setPuntaje(30.5);
 		

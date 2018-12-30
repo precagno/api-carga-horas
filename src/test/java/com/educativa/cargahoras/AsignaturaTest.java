@@ -21,17 +21,17 @@ public class AsignaturaTest {
 	@Autowired
 	private AsignaturaRepository repo;
 
-	//@Test
+	@Test
 	public void contextLoads() {
 	}
 
-	@Test
+	//@Test
 	public void cargarAsignaturasTest(){
 
 	}
 
-	@Before
-	@After
+	//@Before
+	//@After
 	public void truncateTable(){
 		this.repo.deleteAll();
 	}
