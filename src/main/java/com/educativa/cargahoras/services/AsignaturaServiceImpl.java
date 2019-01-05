@@ -3,7 +3,6 @@ package com.educativa.cargahoras.services;
 import com.educativa.cargahoras.entities.Asignatura;
 import com.educativa.cargahoras.exceptions.ResourceNotFoundException;
 import com.educativa.cargahoras.repositories.AsignaturaRepository;
-import com.educativa.cargahoras.validations.ValidateEntityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +12,6 @@ import java.util.List;
 public class AsignaturaServiceImpl implements AsignaturaService{
     @Autowired
     private AsignaturaRepository asignaturaRepository;
-
-    @Autowired
-    private ValidateEntityServiceImpl validateEntityService;
 
     @Override
     public List<Asignatura> getAsignaturas() {
@@ -43,6 +39,16 @@ public class AsignaturaServiceImpl implements AsignaturaService{
 
         asignaturaById.setNombreAsignatura(asignatura.getNombreAsignatura());
 
+        this.asignaturaRepository.save(asignaturaById);
+
+        return id;
+    }
+
+    @Override
+    public int deleteAsignaturaById(int id) {
+        Asignatura asignaturaById = this.getAsignaturaById(id);
+        this.asignaturaRepository.delete(asignaturaById);
+
         return id;
     }
 
@@ -51,12 +57,7 @@ public class AsignaturaServiceImpl implements AsignaturaService{
         this.asignaturaRepository.deleteAll();
     }
 
-    @Override
-    public int deleteAsignaturaById(int id) {
-        this.asignaturaRepository.deleteById(id);
 
-        return id;
-    }
 
     @Override
     public Long cantAsignaturas() {

@@ -35,7 +35,8 @@ public class DocenteTest {
 		
 		assertThat(this.docenteService.cantDocentes())
 		.isGreaterThan(0)
-		.isEqualTo(1);
+		.isEqualTo(1)
+		.isNotEqualTo(4);
 		
 		assertThat(docFound.getNombre())
 			.isEqualTo(nombre)

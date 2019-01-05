@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.educativa.cargahoras.services.AsignaturaService;
 import com.educativa.cargahoras.services.AsignaturaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +23,20 @@ import com.educativa.cargahoras.entities.Asignatura;
 @RequestMapping("/api")
 public class AsignaturaController {
 	@Autowired
-	private AsignaturaServiceImpl asignaturaService;
+	private AsignaturaService asignaturaService;
 	
 	//Get all asignaturas
 	@GetMapping("/asignaturas")
 	public List<Asignatura> getAsignaturas(){
 		return this.asignaturaService.getAsignaturas();
 	}
-	
+
+	//Get single asignatura by id
+	@GetMapping("/asignaturas/{id}")
+	public Asignatura getAsignaturaById(@PathVariable(name="id")Integer id){
+		return this.asignaturaService.getAsignaturaById(id);
+	}
+
 	//Create a new asignatura
 	@PostMapping("/asignaturas")
 	public ResponseEntity<?> createAsignatura(@Valid @RequestBody Asignatura asignatura){
@@ -37,13 +44,7 @@ public class AsignaturaController {
         String response=String.format("Asignatura creada correctamente con id %d",asignaturaSaved.getIdAsignatura());
         return ResponseEntity.ok(response);
     }
-	
-	//Get single asignatura by id
-	@GetMapping("/asignaturas/{id}")
-	public Asignatura getAsignaturaById(@PathVariable(name="id")Integer id){
-		return this.asignaturaService.getAsignaturaById(id);
-	}
-	
+
 	//Update asignatura
 	@PutMapping("/asignaturas/{id}")
 	public int updateAsignatura(@PathVariable(value="id") Integer id,@Valid @RequestBody Asignatura asignatura){
