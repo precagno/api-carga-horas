@@ -57,8 +57,6 @@ public class AsignaturaServiceImpl implements AsignaturaService{
         this.asignaturaRepository.deleteAll();
     }
 
-
-
     @Override
     public Long cantAsignaturas() {
         return this.asignaturaRepository.count();

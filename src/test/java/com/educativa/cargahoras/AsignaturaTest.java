@@ -31,14 +31,14 @@ public class AsignaturaTest {
 		List<Asignatura> asignaturas = this.asignaturaService.getAsignaturas();
 
 		assertThat(asignaturas).isNotNull();
-		assertThat(asignaturas.size()).isEqualTo(0);
+		assertThat(this.asignaturaService.cantAsignaturas()).isEqualTo(0);
 
 		Asignatura asignaturaSaved=this.createAsignaturaEntity();
 
 		asignaturas=this.asignaturaService.getAsignaturas();
 
 		assertThat(asignaturas).isNotNull();
-		assertThat(asignaturas.size()).isEqualTo(1);
+		assertThat(this.asignaturaService.cantAsignaturas()).isEqualTo(1);
 		assertThat(asignaturas.get(0).getNombreAsignatura()).isEqualTo(asignaturaSaved.getNombreAsignatura());
 	}
 
