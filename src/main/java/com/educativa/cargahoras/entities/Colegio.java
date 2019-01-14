@@ -6,13 +6,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="colegios")
-@EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties({"createdAt"})
 public class Colegio {
 	@Id

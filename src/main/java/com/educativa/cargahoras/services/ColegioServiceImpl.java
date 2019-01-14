@@ -5,7 +5,6 @@ import com.educativa.cargahoras.exceptions.ResourceNotFoundException;
 import com.educativa.cargahoras.repositories.ColegioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -31,7 +30,12 @@ public class ColegioServiceImpl implements ColegioService{
 
     @Override
     public int updateColegio(int id, Colegio colegio) {
-        throw new NotImplementedException();
+        Colegio colegioAux = this.getColegioById(id);
+
+        colegioAux.setNombreColegio(colegio.getNombreColegio());
+        colegioAux.setDireccion(colegio.getDireccion());
+
+        return id;
     }
 
     @Override
