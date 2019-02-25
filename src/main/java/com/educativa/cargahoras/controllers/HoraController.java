@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.educativa.cargahoras.exceptions.NotImplementedException;
+import com.educativa.cargahoras.services.HoraService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,48 +18,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educativa.cargahoras.exceptions.ResourceNotFoundException;
+
 import com.educativa.cargahoras.entities.Hora;
-import com.educativa.cargahoras.repositories.HoraRepository;
 
 @RestController
 @RequestMapping("/api")
 public class HoraController {
-	
 	@Autowired
-	private HoraRepository horaRepository;
+	private HoraService horaService;
 	
 	@GetMapping("/horas")
 	public List<Hora> getHoras(){
-		return this.horaRepository.findAll();
+		return this.horaService.getHoras();
+	}
+
+	@GetMapping("/horas/{id}")
+	public Hora getHoraById(@PathVariable(value="id") Integer id){
+		return this.horaService.getHoraById(id);
 	}
 	
 	@PostMapping("/horas")
-	public Hora createHora(@Valid @RequestBody Hora hora){
-		return this.horaRepository.save(hora);
+	public ResponseEntity<Hora> createHora(@Valid @RequestBody Hora hora){
+		Hora horaCreada = this.horaService.createHora(hora);
+		String response=String.format("La hora con id: %s fue creada correctamente.",horaCreada.getID_hora());
+
+		return ResponseEntity.ok(hora);
 	}
-	
-	@GetMapping("/horas/{id}")
-	public Hora getHoraById(@PathVariable(value="id") Integer id){
-		return this.horaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Hora","ID_hora",id));
-	}
-	
+
 	@PutMapping("/horas/{id}")
-	public Hora updateHora(@PathVariable(value="id") Integer id,@Valid @RequestBody Hora hora){
-		Hora hora_edited=this.horaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Hora", "ID_hora",id));
-		hora_edited.setColegio(hora.getColegio());
-		hora_edited.setCurso(hora.getCurso());
-		hora_edited.setDescripcion(hora.getDescripcion());
-		
-		return this.horaRepository.save(hora_edited);
+	public ResponseEntity<?> updateHora(@PathVariable(value="id") Integer id, @Valid @RequestBody Hora hora){
+		throw new NotImplementedException("updateHora");
 	}
 	
 	@DeleteMapping("/horas/{id}")
-	public ResponseEntity<?> deleteHora(@PathVariable(value="id") Integer id){
+	public ResponseEntity<String> deleteHora(@PathVariable(value="id") Integer id){
 		String response=String.format("La hora con id: %s fue borrada correctamente.",id);
-		Hora horaDeleted=this.horaRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Hora", "ID_hora", id));
-		
-		this.horaRepository.delete(horaDeleted);
-		return new ResponseEntity<String>(response,HttpStatus.OK);
+
+		this.horaService.deleteHoraById(id);
+		return ResponseEntity.ok(response);
 	}
 }

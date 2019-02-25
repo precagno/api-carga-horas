@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.educativa.cargahoras.services.ColegioServiceImpl;
+import com.educativa.cargahoras.services.ColegioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +22,7 @@ import com.educativa.cargahoras.entities.Colegio;
 @RequestMapping("/api")
 public class ColegioController {
 	@Autowired
-	private ColegioServiceImpl colegioService;
+	private ColegioService colegioService;
 	
 	//Get all colegios
 	@GetMapping("/colegios")

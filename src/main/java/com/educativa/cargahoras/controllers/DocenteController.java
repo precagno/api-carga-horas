@@ -3,7 +3,7 @@ package com.educativa.cargahoras.controllers;
 import java.util.List;
 
 
-import com.educativa.cargahoras.services.DocenteServiceImpl;
+import com.educativa.cargahoras.services.DocenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +21,7 @@ import com.educativa.cargahoras.entities.Docente;
 @RequestMapping("/api")
 public class DocenteController {
 	@Autowired
-	private DocenteServiceImpl docenteService;
+	private DocenteService docenteService;
 
 	//Get all docentes
 	@GetMapping("/docentes")
