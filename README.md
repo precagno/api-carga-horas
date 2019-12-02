@@ -2,42 +2,15 @@
 
 ## Carga de horas docentes
 
-Api ficticia desarrollada con Spring Boot hecha para carga de horas docentes de Villa Ballester.
+Api ficticia desarrollada con Spring Boot para emular la carga de horas docentes de un partido(por ejemplo San Martin).
 
-La API cuenta con los siguientes endpoints: 
+La API cuenta con los siguientes recursos: 
 	
-### Horas
-Verb | URL |
-|---|---|
-| GET 	 | /api/horas		|
-| GET 	 | /api/horas/{id}	|
-| POST 	 | /api/horas		|
-| PUT 	 | /api/horas/{id}	|
-| DELETE | /api/horas/{id}	|
-
-### Asignaturas
-Verb | URL |
-|---|---|
-| GET 	 | /api/asignaturas		|
-| GET 	 | /api/asignaturas/{id}|
-| POST 	 | /api/asignaturas		|
-| PUT 	 | /api/asignaturas/{id}|
-| DELETE | /api/asignaturas/{id}|
-
-### Colegios
-Verb | URL |
-|---|---|
-| GET 	 | /api/colegios		|
-| GET 	 | /api/colegios/{id}	|
-| POST 	 | /api/colegios		|
-| PUT 	 | /api/colegios/{id}	|
-| DELETE | /api/colegios/{id}	|
-
 ### Docentes
 Verb | URL |
 |---|---|
-| GET 	 | /api/docentes		|
-| GET 	 | /api/docentes/{id}	|
-| POST 	 | /api/docentes		|
-| PUT 	 | /api/docentes/{id}	|
-| DELETE | /api/docentes/{id}	|
+| GET 	 | /api/v1/docentes		|
+| GET 	 | /api/v1/docente/{id}	|
+| POST 	 | /api/v1/docente		|
+| PATCH  | /api/v1/docente/{id}	|
+| DELETE | /api/v1/docente/{id}	|

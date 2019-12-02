@@ -1,8 +1,8 @@
 package com.educativa.cargahoras.services;
 
-import com.educativa.cargahoras.entities.Docente;
-
 import java.util.List;
+
+import com.educativa.cargahoras.entities.Docente;
 
 public interface DocenteService {
     public List<Docente> getAllDocentes();

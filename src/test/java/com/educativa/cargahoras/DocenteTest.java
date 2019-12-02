@@ -1,9 +1,5 @@
 package com.educativa.cargahoras;
 
-import com.educativa.cargahoras.entities.Docente;
-import com.educativa.cargahoras.exceptions.ResourceNotFoundException;
-import com.educativa.cargahoras.services.DocenteService;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -13,6 +9,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.educativa.cargahoras.entities.Docente;
+import com.educativa.cargahoras.exceptions.ResourceNotFoundException;
+import com.educativa.cargahoras.services.DocenteService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -71,13 +71,12 @@ public class DocenteTest {
 	@Test
 	public void updateDocenteTest(){
         int idDocente = this.createDocenteEntity().getIdDocente();
-
         Docente docenteAux = new Docente();
         String nombre = "Raul";
         docenteAux.setNombre(nombre);
         String apellido = "Antares";
+        
         docenteAux.setApellido(apellido);
-
         this.docenteService.updateDocenteById(idDocente,docenteAux);
 
         Docente docenteUpdated = this.docenteService.getDocenteById(idDocente);
@@ -111,7 +110,6 @@ public class DocenteTest {
 		docente.setNacionalidad("argentino");
 		docente.setAntiguedad(6);
 		docente.setPuntaje(30.5);
-		
 		return this.docenteService.createDocente(docente);
 	}
 }

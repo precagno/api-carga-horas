@@ -1,8 +1,8 @@
 package com.educativa.cargahoras.services;
 
-import com.educativa.cargahoras.entities.Hora;
-
 import java.util.List;
+
+import com.educativa.cargahoras.entities.Hora;
 
 public interface HoraService {
     public Hora getHoraById(int id);

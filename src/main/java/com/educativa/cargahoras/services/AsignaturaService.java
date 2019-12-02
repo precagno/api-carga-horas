@@ -1,8 +1,8 @@
 package com.educativa.cargahoras.services;
 
-import com.educativa.cargahoras.entities.Asignatura;
-
 import java.util.List;
+
+import com.educativa.cargahoras.entities.Asignatura;
 
 public interface AsignaturaService{
     public Asignatura getAsignaturaById(int id);

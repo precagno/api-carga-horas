@@ -1,19 +1,20 @@
 package com.educativa.cargahoras;
 
-import com.educativa.cargahoras.entities.Asignatura;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import com.educativa.cargahoras.exceptions.ResourceNotFoundException;
-import com.educativa.cargahoras.services.AsignaturaService;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import java.util.List;
+import com.educativa.cargahoras.entities.Asignatura;
+import com.educativa.cargahoras.exceptions.ResourceNotFoundException;
+import com.educativa.cargahoras.services.AsignaturaService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

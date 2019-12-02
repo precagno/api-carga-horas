@@ -1,10 +1,10 @@
 package com.educativa.cargahoras.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Embeddable
 public class Direccion {
