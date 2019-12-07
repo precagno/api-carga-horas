@@ -24,41 +24,35 @@ public class AsignaturaController {
 	@Autowired
 	private AsignaturaService asignaturaService;
 	
-	//Get all asignaturas
-	@GetMapping("/asignaturas")
+	//Trae todas las asignaturas
+	@GetMapping("/v1/asignaturas")
 	public List<Asignatura> getAsignaturas(){
 		return this.asignaturaService.getAsignaturas();
 	}
-
-	//Get single asignatura by id
-	@GetMapping("/asignaturas/{id}")
+	//Traer una asignatura por id
+	@GetMapping("/v1/asignatura/{id}")
 	public Asignatura getAsignaturaById(@PathVariable(name="id")Integer id){
 		return this.asignaturaService.getAsignaturaById(id);
 	}
-
-	//Create a new asignatura
-	@PostMapping("/asignaturas")
-	public ResponseEntity<?> createAsignatura(@Valid @RequestBody Asignatura asignatura){
+	//Crear una nueva asignatura
+	@PostMapping("/v1/asignatura")
+	public ResponseEntity<String> createAsignatura(@Valid @RequestBody Asignatura asignatura){
 		Asignatura asignaturaSaved=this.asignaturaService.createAsignatura(asignatura);
         String response=String.format("Asignatura creada correctamente con id %d",asignaturaSaved.getIdAsignatura());
         return ResponseEntity.ok(response);
     }
-
-	//Update asignatura
-	@PutMapping("/asignaturas/{id}")
-	public int updateAsignatura(@PathVariable(value="id") Integer id,@Valid @RequestBody Asignatura asignatura){
+	//Actualiza una asignatura por id
+	@PutMapping("/v1/asignatura/{id}")
+	public ResponseEntity<String> updateAsignatura(@PathVariable(value="id") Integer id,@Valid @RequestBody Asignatura asignatura){
         int idAsignatura = this.asignaturaService.updateAsignatura(id, asignatura);
         String response=String.format("Asignatura actualizada correctamente con id %d",idAsignatura);
-
-        return idAsignatura;
+        return ResponseEntity.ok(response);
     }
-	//Delete asignatura
-	@DeleteMapping("/asignaturas/{id}")
-	public ResponseEntity<?> deleteAsignatura(@PathVariable(value="id") Integer id){
+	//Borrar una asignatura por id
+	@DeleteMapping("/v1/asignatura/{id}")
+	public ResponseEntity<String> deleteAsignatura(@PathVariable(value="id") Integer id){
         int idAsignaturaDeleted = this.asignaturaService.deleteAsignaturaById(id);
-
         String response=String.format("La asignatura con id: %d fue borrada correctamente.",idAsignaturaDeleted);
-
 		return ResponseEntity.ok(response);
 	}
 }

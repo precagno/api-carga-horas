@@ -14,3 +14,13 @@ Verb | URL |
 | POST 	 | /api/v1/docente		|
 | PATCH  | /api/v1/docente/{id}	|
 | DELETE | /api/v1/docente/{id}	|
+
+
+### Asignaturas
+Verb | URL |
+|---|---|
+| GET 	 | /api/v1/asignaturas		|
+| GET 	 | /api/v1/asignatura/{id}	|
+| POST 	 | /api/v1/asignatura		|
+| PUT  	 | /api/v1/asignatura/{id}	|
+| DELETE | /api/v1/asignatura/{id}	|

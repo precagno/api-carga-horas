@@ -22,11 +22,7 @@ public class AsignaturaTest {
 
 	@Autowired
 	private AsignaturaService asignaturaService;
-
-	//@Test
-	public void contextLoads() {
-	}
-
+	
 	@Test
 	public void getAllAsignaturasTest(){
 		List<Asignatura> asignaturas = this.asignaturaService.getAsignaturas();
@@ -35,7 +31,6 @@ public class AsignaturaTest {
 		assertThat(this.asignaturaService.cantAsignaturas()).isEqualTo(0);
 
 		Asignatura asignaturaSaved=this.createAsignaturaEntity();
-
 		asignaturas=this.asignaturaService.getAsignaturas();
 
 		assertThat(asignaturas).isNotNull();
@@ -78,11 +73,10 @@ public class AsignaturaTest {
 	@Test
 	public void updateAsignaturaTest(){
 		int idAsignatura = this.createAsignaturaEntity().getIdAsignatura();
-
 		Asignatura asignaturaAux = new Asignatura();
 		String nombreAsignatura = "Lengua y Literatura de America Latina";
+		
 		asignaturaAux.setNombreAsignatura(nombreAsignatura);
-
 		this.asignaturaService.updateAsignatura(idAsignatura,asignaturaAux);
 
 		Asignatura asignaturaUpdated = this.asignaturaService.getAsignaturaById(idAsignatura);
@@ -99,17 +93,17 @@ public class AsignaturaTest {
 		assertThat(asignaturaDeleted).isEqualTo(asignaturaSaved.getIdAsignatura());
 	}
 
+	//Before and After methods
 	@Before
 	public void deleteAllAsignaturas(){
 		this.asignaturaService.deleteAsignaturas();
 	}
 
-	/////////////Private methods
+	//Private
 	private Asignatura createAsignaturaEntity(){
 		Asignatura asignatura = new Asignatura();
-
+		
 		asignatura.setNombreAsignatura("Lengua y Literatura");
-
 		return this.asignaturaService.createAsignatura(asignatura);
 	}
 }

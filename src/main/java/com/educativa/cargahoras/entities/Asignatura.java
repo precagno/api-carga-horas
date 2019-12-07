@@ -18,13 +18,14 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="asignaturas")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value={"fechaCreacion"},allowGetters=true)
+//@JsonIgnoreProperties(value={"fechaCreacion"},allowGetters=true)
 public class Asignatura {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -41,40 +42,37 @@ public class Asignatura {
     @JsonProperty("docentes")
 	@ManyToMany(mappedBy = "asignaturas")
 	private List<Docente> docentes;
+    
+    public Asignatura() {}
+    
+    public Asignatura(@NotBlank String nombreAsignatura) {
+		this.nombreAsignatura = nombreAsignatura;
+	}
 
     ////GETTERS
-    public Integer getIdAsignatura() {
-        return idAsignatura;
-    }
-    public void setIdAsignatura(Integer idAsignatura) {
-        this.idAsignatura = idAsignatura;
-    }
-    public String getNombreAsignatura() {
-        return nombreAsignatura;
-    }
-    public void setNombreAsignatura(String nombreAsignatura) {
-        this.nombreAsignatura = nombreAsignatura;
-    }
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
-    ////SETTERS
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-    public List<Docente> getDocentes() {
-        return docentes;
-    }
-    public void setDocentes(List<Docente> docentes) {
-        this.docentes = docentes;
-    }
-
-    @Override
-	public String toString() {
-		return "Asignatura{" +
-				"idAsignatura=" + idAsignatura +
-				", nombreAsignatura='" + nombreAsignatura + '\'' +
-				", fechaCreacion=" + fechaCreacion +
-				'}';
+	public String getNombreAsignatura() {
+		return nombreAsignatura;
 	}
+
+	public List<Docente> getDocentes() {
+		return docentes;
+	}
+	
+	public Integer getIdAsignatura() {
+		return idAsignatura;
+	}
+
+	@JsonFormat(shape = Shape.STRING,pattern = "dd/MM/yyyy")
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	////SETTERS
+	public void setNombreAsignatura(String nombreAsignatura) {
+		this.nombreAsignatura = nombreAsignatura;
+	}
+
+	public void setDocentes(List<Docente> docentes) {
+		this.docentes = docentes;
+	}   
 }

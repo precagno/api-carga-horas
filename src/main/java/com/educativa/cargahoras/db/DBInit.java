@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.educativa.cargahoras.entities.Asignatura;
 import com.educativa.cargahoras.entities.Docente;
+import com.educativa.cargahoras.services.AsignaturaService;
 import com.educativa.cargahoras.services.DocenteService;
 
 @Configuration
@@ -13,6 +15,8 @@ public class DBInit implements CommandLineRunner{
 
 	@Autowired
 	private DocenteService docenteService;
+	@Autowired
+	private AsignaturaService asignaturaService;
 	
 	@Value("${db.data.fake}")
 	private boolean fakeData;
@@ -20,7 +24,8 @@ public class DBInit implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		if(this.fakeData) {
-			createDocentes();
+			this.createDocentes();
+			this.createAsignaturas();
 		}
 	}
 
@@ -35,6 +40,19 @@ public class DBInit implements CommandLineRunner{
 		this.docenteService.createDocente(docente2);
 		this.docenteService.createDocente(docente3);
 		this.docenteService.createDocente(docente4);
+	}
+	
+	private void createAsignaturas() {
+		Asignatura asignatura1=new Asignatura("Biologia");
+		Asignatura asignatura2=new Asignatura("Inglés");
+		Asignatura asignatura3=new Asignatura("Matemática");
+		Asignatura asignatura4=new Asignatura("Naturales");
+		
+		this.asignaturaService.createAsignatura(asignatura1);
+		this.asignaturaService.createAsignatura(asignatura2);
+		this.asignaturaService.createAsignatura(asignatura3);
+		this.asignaturaService.createAsignatura(asignatura4);
+		
 	}
 
 }
